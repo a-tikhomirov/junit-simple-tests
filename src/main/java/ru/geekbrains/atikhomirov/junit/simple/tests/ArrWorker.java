@@ -3,6 +3,7 @@ package ru.geekbrains.atikhomirov.junit.simple.tests;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+//import java.util.Objects;  // for another option
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,9 +38,11 @@ public class ArrWorker {
             if (!input.contains(number)) {
                 return false;
             }
+            //input.removeIf(i -> Objects.equals(number, i)); // another option
             filters.add(i -> i != number);
         }
 
+        //return input.isEmpty(); // another option
         return input.stream().noneMatch(filters.stream().reduce(x -> true, Predicate::and));
     }
 
