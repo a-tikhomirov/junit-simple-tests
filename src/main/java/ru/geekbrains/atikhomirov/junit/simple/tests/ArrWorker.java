@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ArrWorker {
+    private static List<Integer> getListFromIntArr(int[] arr) {
+        return Arrays.stream(arr).boxed().collect(Collectors.toList());
+    }
+
     public static int[] getElementsAfterNumber(int[] source, int number) {
-        List<Integer> input = Arrays.stream(source).boxed().collect(Collectors.toList());
+        List<Integer> input = getListFromIntArr(source);
         if (input.isEmpty() || !input.contains(number)) {
             throw new RuntimeException("No number " + number + " in source array");
         }
@@ -23,7 +27,7 @@ public class ArrWorker {
     }
 
     public static boolean checkArrForNumbers(int[] source, int... numbers) {
-        List<Integer> input = Arrays.stream(source).boxed().collect(Collectors.toList());
+        List<Integer> input = getListFromIntArr(source);
         if (input.isEmpty() || numbers.length == 0) {
             return false;
         }
