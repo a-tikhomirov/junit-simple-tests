@@ -14,9 +14,9 @@ public class ElementsAfterNumberTest {
 
     private static Stream<Arguments> testExceptionDataSupplier() {
         return Stream.of(
-                Arguments.of(ArrWorker.getRandomArray(8,-10,3), 4),
-                Arguments.of(ArrWorker.getRandomArray(8,5,20), 4),
-                Arguments.of(ArrWorker.getRandomArray(8,20,40), 4)
+                Arguments.of(ArrWorker.getRandomArray(8, -20, 3), 4),
+                Arguments.of(ArrWorker.getRandomArray(8, 5, 20), 4),
+                Arguments.of(new int[] {}, 4)
         );
     }
 
