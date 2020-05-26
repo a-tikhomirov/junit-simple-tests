@@ -24,6 +24,7 @@ public class ElementsAfterNumberTest {
     @ParameterizedTest(name = "{index} ==> Input array: {0}, number: {1}")
     @MethodSource("testExceptionDataSupplier")
     public void testException(int[] sourceArray, int number) {
+        assertThrows(RuntimeException.class, () -> ArrWorker.getElementsAfterNumberStream(sourceArray, number));
         assertThrows(RuntimeException.class, () -> ArrWorker.getElementsAfterNumber(sourceArray, number));
     }
 
@@ -39,6 +40,7 @@ public class ElementsAfterNumberTest {
     @ParameterizedTest(name = "{index} ==> Input array: {0}, number: {1}; Expected output array: {2}")
     @MethodSource("testArraysDataSupplier")
     public void testArrays(int[] sourceArray, int number, int[] expectedArray) {
+        assertArrayEquals(expectedArray, ArrWorker.getElementsAfterNumberStream(sourceArray, number));
         assertArrayEquals(expectedArray, ArrWorker.getElementsAfterNumber(sourceArray, number));
     }
 }

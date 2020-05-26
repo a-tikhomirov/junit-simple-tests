@@ -27,6 +27,8 @@ public class CheckArrForNumbersTest {
     @ParameterizedTest(name = "{index} ==> Input array: {0}, numbers: {1}; Expected result: {2}")
     @MethodSource("testArraysDataSupplier")
     public void testArrays(int[] sourceArray, int[] numbers, boolean expectedResult) {
+        assertEquals(expectedResult, ArrWorker.checkArrForNumbersStream(sourceArray, numbers));
+        assertEquals(expectedResult, ArrWorker.checkArrForNumbersStream2(sourceArray, numbers));
         assertEquals(expectedResult, ArrWorker.checkArrForNumbers(sourceArray, numbers));
     }
 }

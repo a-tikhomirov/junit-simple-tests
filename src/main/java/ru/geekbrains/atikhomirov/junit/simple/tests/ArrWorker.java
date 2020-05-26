@@ -13,7 +13,7 @@ public class ArrWorker {
         return Arrays.stream(arr).boxed().collect(Collectors.toList());
     }
 
-    public static int[] getElementsAfterNumber(int[] source, int number) {
+    public static int[] getElementsAfterNumberStream(int[] source, int number) {
         List<Integer> input = getListFromIntArr(source);
         if (input.isEmpty() || !input.contains(number)) {
             throw new RuntimeException("No number " + number + " in source array");
@@ -27,7 +27,7 @@ public class ArrWorker {
         return input.stream().skip(lastPosOfNumber + 1).mapToInt(i -> i).toArray();
     }
 
-    public static boolean checkArrForNumbers(int[] source, int... numbers) {
+    public static boolean checkArrForNumbersStream(int[] source, int... numbers) {
         List<Integer> input = getListFromIntArr(source);
         if (input.isEmpty() || numbers.length == 0) {
             return false;
@@ -44,6 +44,53 @@ public class ArrWorker {
 
         //return input.isEmpty(); // another option
         return input.stream().noneMatch(filters.stream().reduce(x -> true, Predicate::and));
+    }
+
+    private static int[] getUniqueSorted(int[] source) {
+        return Arrays.stream(source).distinct().sorted().toArray();
+    }
+
+    public static boolean checkArrForNumbersStream2(int[] source, int... numbers) {
+        if (numbers.length == 0 || numbers.length > source.length) {
+            return false;
+        }
+        return Arrays.equals(getUniqueSorted(source), getUniqueSorted(numbers));
+    }
+
+    public static int[] getElementsAfterNumber(int[] source, int number) {
+        for (int i = source.length; i > 0; --i){
+            if (source[i - 1] == number) {
+                return Arrays.copyOfRange(source, i, source.length);
+            }
+        }
+        throw new RuntimeException("No number " + number + " in source array");
+    }
+
+    public static boolean checkArrForNumbers(int[] source, int... numbers) {
+        if (numbers.length == 0 || numbers.length > source.length) {
+            return false;
+        }
+
+        boolean[] numbersPresented = new boolean[numbers.length];
+        for (int sourceElement:source) {
+            boolean numberFound = false;
+            for (int i = 0; i < numbers.length; ++i){
+                if (sourceElement == numbers[i]) {
+                    numbersPresented[i] = true;
+                    numberFound = true;
+                    break;
+                }
+            }
+            if (!numberFound) {
+                return false;
+            }
+        }
+
+        boolean allNumbersPresented = true;
+        for (boolean numberPresented: numbersPresented) {
+            allNumbersPresented &= numberPresented;
+        }
+        return allNumbersPresented;
     }
 
     public static int[] getRandomArray(int len, int min, int max) {
